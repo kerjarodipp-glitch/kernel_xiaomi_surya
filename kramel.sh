@@ -8,7 +8,7 @@ DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
 TANGGAL=${VERSION}-$(date +"%d%m%H%M")
 START=$(date +"%s")
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-export VERSION=X9-BETA
+export VERSION=V1
 export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_HOST="AnotherVyn"
@@ -52,7 +52,7 @@ curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Branch
 Compiler Used : <code>GCC aka Giga Chad Compiler</code>
 Latest Commit: <code>$(git log --pretty=format:'%h : %s' -1)</code>
 <i>Build compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds</i>" -d chat_id=${chat_id} -d parse_mode=HTML
-#curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Flash now else bun" -d chat_id=${chat_id} -d parse_mode=HTML
+curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Flash now else bun" -d chat_id=${chat_id} -d parse_mode=HTML
 
 cp $(pwd)/out/arch/arm64/boot/Image.gz $(pwd)/AnyKernel3
 cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
@@ -68,11 +68,11 @@ cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
 
         if [ $SIGN_BUILD = 1 ]
         then
-                java -jar zipsigner-4.0.jar  StormBreaker-surya-${TANGGAL}.zip StormBreaker-surya-${TANGGAL}-signed.zip
+                java -jar zipsigner-4.0.jar  HaavkKernel-surya-${TANGGAL}.zip HaavkKernel-surya-${TANGGAL}-signed.zip
 
         curl -F chat_id="${chat_id}"  \
                     -F caption="sha1sum: $(sha1sum Storm*-signed.zip | awk '{ print $1 }')" \
-                    -F document=@"$(pwd)/StormBreaker-surya-${TANGGAL}-signed.zip" \
+                    -F document=@"$(pwd)/HaavkKernel-surya-${TANGGAL}-signed.zip" \
                     https://api.telegram.org/bot${TOKEN}/sendDocument
 
 
@@ -85,17 +85,17 @@ cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
 	fi
 
     curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendSticker" \
-        -d sticker="CAACAgUAAxkBAAJi017AAw5j25_B3m8IP-iy98ffcGHZAAJAAgACeV4XIusNfRHZD3hnGQQ" \
+        -d sticker="CAACAgUAAxkBAAEuf79qn2hCHQcReSnDEVW3K5vrGTorUQACvQkAAgrbCFTfu8FN_YF6RT0E" \
         -d chat_id="$chat_id"
 cd ..
 else
         curl -F chat_id="${chat_id}"  \
-                    -F caption="Build ended with an error, F in the chat plox" \
+                    -F caption="Build ended with an error... So Sad" \
                     -F document=@"build.log" \
                     https://api.telegram.org/bot${TOKEN}/sendDocument
 
         curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendSticker" \
-        -d sticker="CAACAgUAAxkBAAK74mCvV3W62vmSIcqQo61RtBxEK0dVAALGAgACw2B4VehbCiKmZwTjHwQ" \
+        -d sticker="CAACAgUAAxkBAAEuf8Fqn2iCjd81bt2Cox_b1XPBNLSu8wACvSUAAqPEwFdqcX50BZfarz0E" \
         -d chat_id="$chat_id"
 
 fi
