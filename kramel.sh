@@ -26,6 +26,8 @@ echo "CONFIG_PATCH_INITRAMFS=y" >> arch/arm64/configs/surya_defconfig
 
 curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Buckle up bois ${BRANCH} build has started" -d chat_id=${chat_id} -d parse_mode=HTML
 
+curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
+
    make O=out ARCH=arm64 $DEF
        make -j$(nproc --all) O=out \
 				ARCH=arm64 \
@@ -71,7 +73,7 @@ cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
                 java -jar zipsigner-4.0.jar  HaavkKernel-surya-${TANGGAL}.zip HaavkKernel-surya-${TANGGAL}-signed.zip
 
         curl -F chat_id="${chat_id}"  \
-                    -F caption="sha1sum: $(sha1sum Storm*-signed.zip | awk '{ print $1 }')" \
+                    -F caption="sha1sum: $(sha1sum Haavk*-signed.zip | awk '{ print $1 }')" \
                     -F document=@"$(pwd)/HaavkKernel-surya-${TANGGAL}-signed.zip" \
                     https://api.telegram.org/bot${TOKEN}/sendDocument
 
@@ -79,7 +81,7 @@ cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
         else
 
         curl -F chat_id="${chat_id}"  \
-                    -F caption="sha1sum: $(sha1sum Storm*.zip | awk '{ print $1 }')" \
+                    -F caption="sha1sum: $(sha1sum Haavk*.zip | awk '{ print $1 }')" \
                     -F document=@"$ZIP_FINAL" \
                     https://api.telegram.org/bot${TOKEN}/sendDocument
 	fi
