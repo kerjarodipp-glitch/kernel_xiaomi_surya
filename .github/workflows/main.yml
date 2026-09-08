@@ -48,8 +48,8 @@ jobs:
       
     - name: Setup git
       run: |
-        git config --global user.name "Forenche"
-        git config --global user.email "prahul2003@gmail.com"
+        git config --global user.name "AnotherVyn"
+        git config --global user.email "AnotherVyn@gmail.com"
         git config --global color.ui false
 
     - name: Install Python2 fallback
