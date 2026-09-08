@@ -24,7 +24,7 @@ SIGN_BUILD=0
 
 echo "CONFIG_PATCH_INITRAMFS=y" >> arch/arm64/configs/surya_defconfig
 
-curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Buckle up bois ${BRANCH} build has started" -d chat_id=${chat_id} -d parse_mode=HTML
+curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Kernel Proses Build.. Sabar... ${BRANCH} build has started" -d chat_id=${chat_id} -d parse_mode=HTML
 
 curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
 
@@ -51,7 +51,7 @@ if [ -f $(pwd)/out/arch/arm64/boot/Image.gz ]
         fi
 # Post to CI channel
 curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Branch: <code>$(git rev-parse --abbrev-ref HEAD)</code>
-Compiler Used : <code>GCC aka Giga Chad Compiler</code>
+Compiler Used : <code>GCC</code>
 Latest Commit: <code>$(git log --pretty=format:'%h : %s' -1)</code>
 <i>Build compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds</i>" -d chat_id=${chat_id} -d parse_mode=HTML
 curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d text="Flash now else bun" -d chat_id=${chat_id} -d parse_mode=HTML
