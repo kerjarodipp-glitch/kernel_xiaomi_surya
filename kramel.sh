@@ -41,7 +41,7 @@ DIFF=$((END - START))
 
 if [ -f $(pwd)/out/arch/arm64/boot/Image.gz ]
 	then
-        if [ BUILD_DTBO = 1 ]
+        if [ $BUILD_DTBO = 1 ]
         then
 		git clone --depth=1 https://android.googlesource.com/platform/system/libufdt libufdt
                 python2 "libufdt/utils/src/mkdtboimg.py" \
@@ -66,7 +66,7 @@ cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3/dtb.img
         make normal
         ZIP_FINAL=$(echo *.zip)
 
-        if [ SIGN_BUILD = 1 ]
+        if [ $SIGN_BUILD = 1 ]
         then
                 java -jar zipsigner-4.0.jar  StormBreaker-surya-${TANGGAL}.zip StormBreaker-surya-${TANGGAL}-signed.zip
 
@@ -102,5 +102,6 @@ fi
 
 if [[ -f ${IMAGE} &&  ${DTBO} ]]
 then
-   mv -f $IMAGE ${DTBO} AnyKernel3
+   mv -f $IMAGE AnyKernel3/
+   mv -f $DTBO AnyKernel3/
 fi
