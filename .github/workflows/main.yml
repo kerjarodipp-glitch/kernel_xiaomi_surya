@@ -27,11 +27,24 @@ jobs:
         unzip \
         xxd \
         python3 \
-        python2 \
         llvm \
         clang \
         lld \
         binutils-aarch64-linux-gnu
+
+    - name: Build Python2
+      run: |
+       sudo apt install -y build-essential wget zlib1g-dev libssl-dev libffi-dev
+
+       wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+       tar xf Python-2.7.18.tgz
+       cd Python-2.7.18
+
+       ./configure --prefix=/usr/local/python2
+       make -j$(nproc)
+       sudo make install
+
+       sudo ln -sf /usr/local/python2/bin/python2.7 /usr/local/bin/python2
       
     - name: Setup git
       run: |
